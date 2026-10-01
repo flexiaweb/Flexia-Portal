@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Soporte y Comentarios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init({
+        publicKey: "4OhnOqhXx8ZCQsXXg",
+      });
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Fondo Abstracto General -->
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <main class="main-viewport support-main-container">
+        <!-- BOTÓN DE ATRÁS -->
+        <div class="support-back-wrapper">
+          <a href="./dashboard.html" class="btn-back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Volver
+          </a>
+        </div>
+
+        <!-- TARJETA BLANCA CONTENEDORA -->
+        <div class="content-card">
+          <div class="support-header-content">
+            <h1 class="support-title">Danos tu opinión</h1>
+            <p class="support-subtitle">Los campos obligatorios están marcados con un asterisco <span class="text-danger">*</span></p>
+          </div>
+
+          <form id="formSoporteFeedback">
+            <div class="support-form-stack">
+              <div class="support-field-group">
+                <label for="tipoComentario" class="support-label">
+                  Seleccionar comentarios <span class="text-danger">*</span>
+                </label>
+                <div class="support-select-wrapper">
+                  <select id="tipoComentario" name="tipo_comentario" required class="form-control-styled support-select">
+                    <option value="" disabled selected>Elegir uno</option>
+                    <option value="Plantear una pregunta">Plantear una pregunta</option>
+                    <option value="Dejar un comentario">Dejar un comentario</option>
+                    <option value="Informar de un error">Informar de un error</option>
+                    <option value="Sugerir una mejora">Sugerir una mejora</option>
+                  </select>
+                  <span class="support-select-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </span>
+                </div>
+              </div>
+              <div class="support-field-group">
+                <label for="descripcionComentario" class="support-label">
+                  Descripción <span class="text-danger">*</span>
+                </label>
+                <textarea id="descripcionComentario" name="descripcion" rows="5" placeholder="Escribe aquí los detalles..." required class="form-control-styled support-textarea"></textarea>
+              </div>
+            </div>
+            <div class="support-footer-actions">
+              <button type="button" onclick="window.location.href='./dashboard.html'" class="btn-secondary">
+                Cancelar
+              </button>
+              <button type="submit" id="btnEnviar" class="btn-primary">
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL DE ÉXITO -->
+  <div id="modalExito" class="support-modal-overlay">
+    <div class="support-modal-card">
+      <div class="support-modal-icon">
+        ✓
+      </div>
+      <h3 class="support-modal-title">¡Enviado con éxito!</h3>
+      <p class="support-modal-text">Gracias por hacernos llegar tu opinión.</p>
+      <button type="button" id="btnCerrarModal" class="btn-primary support-modal-btn">
+        Aceptar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('formSoporteFeedback');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      btnEnviar.textContent = "Enviando...";
+      btnEnviar.disabled = true;
+
+      // Parámetros que se enviarán a tu plantilla de correo configurada en EmailJS
+      const serviceID = 'service_3j0etjq';
+      const templateID = 'template_u2nz5j9';
+
+      emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+          btnEnviar.textContent = "Enviar";
+          btnEnviar.disabled = false;
+          document.getElementById('modalExito').style.display = 'flex';
+        }, (err) => {
+          btnEnviar.textContent = "Enviar";
+          btnEnviar.disabled = false;
+          alert('Hubo un error al enviar el mensaje. Inténtalo de nuevo más tarde.');
+          console.error('Error de EmailJS:', err);
+        });
+    });
+
+    document.getElementById('btnCerrarModal').addEventListener('click', function() {
+      document.getElementById('modalExito').style.display = 'none';
+      form.reset();
+    });
+  </script>
+</body>
+</html>

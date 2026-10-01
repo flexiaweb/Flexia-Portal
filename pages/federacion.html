@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Usuarios Federados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Fondo Abstracto General -->
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <!-- ÁREA CENTRAL (VENTANA COMPLETA) -->
+      <main class="main-viewport">
+        <div id="appHeaderContainer"></div>
+        
+        <!-- NAVEGACIÓN DE RUTA -->
+        <div style="margin-bottom: 1.5rem;">
+            <a href="./dashboard.html" class="btn-back-link" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent-primary); font-weight: 600; font-size: 0.9rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Dashboard
+            </a>
+        </div>
+
+        <!-- CONTENIDO DEL MÓDULO FEDERACIÓN -->
+        <div class="content-card">
+          <div class="card-header-actions" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 class="card-item-title" style="margin-bottom: 0.25rem;">Deportistas Federados</h2>
+              <p class="card-item-description" style="margin: 0; font-size: 0.9rem;">Gestión de licencias y datos federativos.</p>
+            </div>
+            
+            <!-- Controles alineados horizontalmente -->
+            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="filtroFederadosGeneral" placeholder="Buscar por nombre o DNI..." style="padding: 0.45rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.85rem; outline: none; background: rgba(255,255,255,0.5); width: 240px;">
+              <button id="btnNuevoFederado" class="btn-primary">Nuevo Federado</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA DE FEDERADOS -->
+        <div class="content-card" style="padding: 0; overflow: hidden;">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nombre y Apellidos</th>
+                  <th>F. Nacimiento</th>
+                  <th>Sexo</th>
+                  <th>DNI</th>
+                  <th>Licencia Federativa</th>
+                  <th style="text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="federacionTableBody">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-muted);">Cargando registros...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+<!-- MODAL NUEVO / EDITAR FEDERADO -->
+<div id="modalFederado" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1200; align-items: center; justify-content: center; padding: 1rem;">
+  <div class="content-card" style="width: 100%; max-width: 500px; margin: auto; max-height: 90vh; overflow-y: auto;">
+    
+    <!-- Cabecera del Modal -->
+    <div class="modal-header-actions" style="margin-bottom: 1.5rem;">
+      <h3 id="modalFederadoTitulo" class="card-item-title" style="font-size: 1.25rem; font-weight: 700;">Añadir Nuevo Federado</h3>
+      <button type="button" id="btnCerrarModalFederado" class="btn-icon-action" style="background: var(--accent-light); border: 1px solid var(--border-color); color: var(--accent-primary); width: 32px; height: 32px; border-radius: 50%;">✕</button>
+    </div>
+
+    <form id="formFederado">
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        
+        <div class="popup-field-group" style="margin: 0;">
+          <label class="popup-field-label" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; display: block;">Nombre</label>
+          <input type="text" id="fedNombre" placeholder="Nombre" required style="width: 100%; padding: 0.65rem 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.9rem; font-family: var(--font-family); outline: none; background: #fff; color: var(--text-primary);">
+        </div>
+
+        <div class="popup-field-group" style="margin: 0;">
+          <label class="popup-field-label" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; display: block;">Apellidos</label>
+          <input type="text" id="fedApellidos" placeholder="Apellidos" required style="width: 100%; padding: 0.65rem 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.9rem; font-family: var(--font-family); outline: none; background: #fff; color: var(--text-primary);">
+        </div>
+
+        <div class="popup-field-group" style="margin: 0;">
+          <label class="popup-field-label" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; display: block;">F. Nacimiento</label>
+          <input type="date" id="fedNacimiento" required style="width: 100%; padding: 0.65rem 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.9rem; font-family: var(--font-family); outline: none; background: #fff; color: var(--text-primary);">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="popup-field-group" style="margin: 0;">
+            <label class="popup-field-label" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; display: block;">D.N.I.</label>
+            <input type="text" id="fedDni" placeholder="00000000X" style="width: 100%; padding: 0.65rem 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.9rem; font-family: var(--font-family); outline: none; background: #fff; color: var(--text-primary);">
+          </div>
+          <div class="popup-field-group" style="margin: 0;">
+            <label class="popup-field-label" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem; display: block;">Licencia Federativa</label>
+            <input type="text" id="fedLicencia" placeholder="Nº de licencia" required style="width: 100%; padding: 0.65rem 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.9rem; font-family: var(--font-family); outline: none; background: #fff; color: var(--text-primary);">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Botones de Acción Inferiores -->
+      <div style="display: flex; gap: 0.75rem; margin-top: 1.75rem;">
+        <button type="button" id="btnCancelarFederado" style="flex: 1; padding: 0.7rem 1rem; background-color: var(--accent-light); color: var(--accent-primary); border: none; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">Cancelar</button>
+        <button type="submit" style="flex: 1; padding: 0.7rem 1rem; background-color: var(--accent-primary); color: #fff; border: none; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">Guardar Federado</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL DE ÉXITO GENERAL -->
+<div id="modalExito" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1300; align-items: center; justify-content: center; padding: 1rem;">
+  <div class="content-card" style="width: 100%; max-width: 400px; margin: auto; text-align: center; padding: 2rem 1.5rem;">
+    <div style="width: 50px; height: 50px; background-color: var(--accent-light, #e0f2fe); color: var(--accent-primary, #0284c7); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem; font-weight: bold;">
+      ✓
+    </div>
+    <h3 class="card-item-title" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">¡Éxito!</h3>
+    <p id="mensajeExitoTexto" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">Operación realizada con éxito.</p>
+    <button type="button" id="btnCerrarModalExito" style="width: 100%; padding: 0.7rem 1rem; background-color: var(--accent-primary); color: #fff; border: none; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">
+      Aceptar
+    </button>
+  </div>
+</div>
+
+<!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN -->
+<div id="modalConfirmarEliminar" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1350; align-items: center; justify-content: center; padding: 1rem;">
+  <div class="content-card" style="width: 100%; max-width: 400px; margin: auto; text-align: center; padding: 2rem 1.5rem;">
+    <div style="width: 50px; height: 50px; background-color: #fee2e2; color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem; font-weight: bold;">
+      !
+    </div>
+    <h3 class="card-item-title" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">¿Estás seguro?</h3>
+    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">¿Estás seguro de que deseas eliminar este registro federativo?</p>
+    <div style="display: flex; gap: 0.75rem;">
+      <button type="button" id="btnCancelarEliminar" style="flex: 1; padding: 0.7rem 1rem; background-color: var(--accent-light); color: var(--accent-primary); border: none; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">Cancelar</button>
+      <button type="button" id="btnConfirmarEliminar" style="flex: 1; padding: 0.7rem 1rem; background-color: #ef4444; color: #fff; border: none; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+  <script type="module" src="../js/auth-check.js"></script>
+  <script type="module" src="../js/user-manager.js"></script>
+  <script type="module" src="../js/federacion-loader.js"></script>
+</body>
+</html>

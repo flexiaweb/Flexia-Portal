@@ -1,0 +1,475 @@
+/* ==========================================================================
+   VARIABLES Y ESTILOS BASE DE AUTENTICACIÓN
+   ========================================================================== */
+   :root {
+    --bg-app: #f0f7ff;
+    --bg-card: rgba(255, 255, 255, 0.94);
+    --border-color: #e2e8f0;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    --accent-primary: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --accent-ring: rgba(37, 99, 235, 0.18);
+    
+    --danger: #ef4444;
+  
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 24px;
+    --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    color: var(--text-primary);
+    background-color: var(--bg-app);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* ==========================================================================
+     VIEWPORT Y FONDO ABSTRACTO DE LA APLICACIÓN (.app-viewport)
+     ========================================================================== */
+  .app-viewport {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 1.5rem;
+    overflow: hidden;
+  }
+  
+  .abstract-background-engine {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: var(--bg-app);
+    pointer-events: none;
+  }
+  
+  .sky-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 30%, #ffffff 0%, #e0f2fe 45%, #bae6fd 100%);
+  }
+  
+  .shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .circle-large {
+    width: 1000px;
+    height: 1000px;
+    top: -200px;
+    right: -200px;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+  
+  .circle-medium {
+    width: 650px;
+    height: 650px;
+    bottom: -150px;
+    left: -100px;
+    border: 1px solid rgba(147, 197, 253, 0.2);
+  }
+  
+  .orb-1 {
+    width: 350px;
+    height: 350px;
+    background: rgba(255, 255, 255, 0.85);
+    filter: blur(50px);
+    bottom: 5%;
+    right: 15%;
+  }
+  
+  .orb-2 {
+    width: 280px;
+    height: 280px;
+    background: rgba(147, 197, 253, 0.4);
+    filter: blur(60px);
+    top: 10%;
+    left: 10%;
+  }
+  
+  /* ==========================================================================
+     CONTENEDOR CENTRAL Y TARJETA (.central-auth-container)
+     ========================================================================== */
+  .central-auth-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 440px;
+  }
+  
+  .auth-card-inner {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2.25rem;
+    box-shadow: 
+      0 20px 40px rgba(15, 23, 42, 0.06),
+      0 1px 3px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  /* Encabezado de Marca */
+  .card-brand-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .brand-svg-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .brand-svg-icon path {
+    fill: var(--accent-primary);
+  }
+  
+  .brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+  
+  .brand-title span {
+    color: var(--accent-primary);
+  }
+  
+  .brand-tagline {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  
+  /* ==========================================================================
+     GESTOR DE VISTAS Y ESTADOS (.auth-views-manager / .view-state)
+     ========================================================================== */
+  .auth-views-manager {
+    position: relative;
+  }
+  
+  /* Ocultar vistas inactivas */
+  .view-state {
+    display: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Mostrar vista activa con animación */
+  .view-state.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: slideUpFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  @keyframes slideUpFade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .view-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .view-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+  
+  .view-header p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  
+  /* ==========================================================================
+     FORMULARIO Y CAMPOS DE ENTRADA (.auth-form)
+     ========================================================================== */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+  }
+  
+  .form-group label {
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .input-wrapper input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.925rem;
+    color: var(--text-primary);
+    background-color: #f8fafc;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    outline: none;
+  }
+  
+  .input-wrapper input::placeholder {
+    color: #94a3b8;
+  }
+  
+  .input-wrapper input:focus {
+    background-color: #ffffff;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 4px var(--accent-ring);
+  }
+  
+  /* Botón de alternar visibilidad de contraseña */
+  .btn-toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    border-radius: 4px;
+    transition: var(--transition);
+  }
+  
+  .btn-toggle-password:hover {
+    color: var(--text-primary);
+  }
+  
+  .eye-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* Opciones de Formulario (Checkbox) */
+  .form-options {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 1.75rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    user-select: none;
+  }
+  
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 18px;
+    width: 18px;
+    background-color: #f8fafc;
+    border: 1.5px solid var(--border-color);
+    border-radius: 4px;
+    transition: var(--transition);
+  }
+  
+  .checkbox-container:hover input ~ .checkmark {
+    border-color: var(--accent-primary);
+  }
+  
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Botón Principal */
+  .btn-primary {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    margin-top: 0.25rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--accent-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.32);
+    transform: translateY(-1px);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  
+  /* Enlaces */
+  .link-action {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .link-action:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+  
+  .link-highlight {
+    font-weight: 700;
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .link-highlight:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+  
+  /* ==========================================================================
+     PIE DE PÁGINA Y BADGE DE VERSIÓN (.auth-footer / .app-version-badge)
+     ========================================================================== */
+  .auth-footer {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+  }
+  
+  .auth-footer p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  
+  .app-version-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--accent-light);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    border-radius: 20px;
+  }
+  
+  #app-version {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+  }
+  
+  /* ==========================================================================
+     ADAPTATIVO PARA MÓVILES
+     ========================================================================== */
+  @media (max-width: 480px) {
+    .app-viewport {
+      padding: 1rem;
+    }
+  
+    .auth-card-inner {
+      padding: 1.75rem 1.25rem;
+      border-radius: var(--radius-md);
+    }
+  
+    .view-header h1 {
+      font-size: 1.15rem;
+    }
+  }

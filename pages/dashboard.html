@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Panel Principal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Fondo Abstracto General -->
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <!-- ÁREA CENTRAL (VENTANA COMPLETA) -->
+      <main class="main-viewport">
+        <div id="appHeaderContainer"></div>
+
+        <!-- GRID -->
+        <div class="modules-section-wrapper">
+          <h2 class="modules-section-title">Menú Principal de Módulos</h2>
+          <div class="modules-grid-cards">
+            
+            <!-- Tarjeta: Socios / Clientes -->
+            <a href="socios.html" class="content-card module-card-link" data-module="socios">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 1 0 7.75"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Socios</h3>
+              <p class="card-item-description">Gestión y listado completo de socios y clientes de la organización.</p>
+            </a>
+
+            <!-- Tarjeta: Federación -->
+            <a href="federacion.html" class="content-card module-card-link" data-module="federacion">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Usuarios Federados</h3>
+              <p class="card-item-description">Control de licencias, altas, datos federativos y deportistas de la organización.</p>
+            </a>
+
+            <!-- Tarjeta: Cuotas -->
+            <a href="cuotas.html" class="content-card module-card-link" data-module="cuotas">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Gestión de Cuotas</h3>
+              <p class="card-item-description">Configuración, importes y control de pagos y cuotas de la organización.</p>
+            </a>
+
+            <!-- Tarjeta: Tesorería y Economía -->
+            <a href="tesoreria.html" class="content-card module-card-link" data-module="tesoreria">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Tesorería</h3>
+              <p class="card-item-description">Control de ingresos, gastos, presupuestos y saldos por secciones y temporadas.</p>
+            </a>
+
+            <!-- Tarjeta: Mi Organización -->
+            <a href="organizacion.html" class="content-card module-card-link" data-module="organizacion">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Mi Organización</h3>
+              <p class="card-item-description">Gestión de datos de la entidad, información fiscal, código principal y configuración general.</p>
+            </a>
+
+            <!-- Tarjeta: Gestión de Cuentas de Usuario -->
+            <a href="user-management.html" class="content-card module-card-link" data-module="user-management">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Gestión de Cuentas</h3>
+              <p class="card-item-description">Administración de cuentas de usuarios y permisos en el portal y en la entidad.</p>
+            </a>
+
+            <!-- Tarjeta: Notificaciones y Comunicaciones -->
+            <a href="notificaciones.html" class="content-card module-card-link" data-module="notificaciones">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Notificaciones</h3>
+              <p class="card-item-description">Gestión, seguimiento y envío de avisos y recordatorios de cobro a socios.</p>
+            </a>
+
+            <!-- Tarjeta: Automatizaciones -->
+            <a href="automatizaciones.html" class="content-card module-card-link" data-module="automatizaciones">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Automatizaciones</h3>
+              <p class="card-item-description">Configuración de flujos automáticos, reglas de procesos y tareas recurrentes.</p>
+            </a>
+
+            <!-- Tarjeta: Logs y Auditoría -->
+            <a href="logs.html" class="content-card module-card-link" data-module="logs">
+              <div class="card-top-row">
+                <div class="card-icon-wrapper">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+                <span class="badge-status active badge-custom">Módulo</span>
+              </div>
+              <h3 class="card-item-title">Logs y Auditoría</h3>
+              <p class="card-item-description">Registro histórico de actividad, seguimiento de acciones de usuarios y auditoría de operaciones en la plataforma.</p>
+            </a>
+
+          </div>
+        </div>
+        <div id="session-info-badge" style="position: fixed; bottom: 10px; right: 15px; font-size: 11px; color: #000000; background: rgba(255, 255, 255, 0.85); padding: 4px 8px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 1000; pointer-events: none;">
+          Cargando sesión...
+        </div>
+      </main>
+
+    </div>
+  </div>
+  <script type="module" src="../js/auth-check.js"></script>
+  <script type="module" src="../js/user-manager.js"></script>
+</body>
+</html>

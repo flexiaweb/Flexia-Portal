@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Automatizaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Fondo Abstracto General -->
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <!-- ÁREA CENTRAL -->
+      <main class="main-viewport">
+        <div id="appHeaderContainer"></div>
+        
+        <!-- NAVEGACIÓN DE RUTA -->
+        <div style="margin-bottom: 1.5rem;">
+            <a href="./dashboard.html" class="btn-back-link" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent-primary); font-weight: 600; font-size: 0.9rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Dashboard
+            </a>
+        </div>
+
+        <!-- GRID DE MÓDULOS -->
+        <div class="modules-section-wrapper">
+          <h2 class="modules-section-title">Panel de Automatizaciones</h2>
+          <p class="support-subtitle" style="margin-top: -0.5rem; margin-bottom: 1.5rem;">Selecciona una herramienta de automatización para ejecutar procesos en lote.</p>
+          
+          <div class="modules-grid-cards" style="grid-template-columns: repeat(3, 1fr);">
+            
+            <!-- Tarjeta 1: Pagos Masivos -->
+            <div class="content-card module-card-link" style="cursor: default;">
+              <div>
+                <div class="card-top-row">
+                  <div class="card-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                      <rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                  </div>
+                </div>
+                <br>
+                <h3 class="card-item-title">Pagos Masivos</h3>
+                <br>
+                <p class="card-item-description">Selecciona un concepto de cuota y aplícalo a varios socios simultáneamente de forma rápida y ordenada.</p>
+              </div>
+              <button type="button" id="btnAbrirModalPagos" class="btn-secondary">
+                <span>Gestionar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
+            <!-- Tarjeta 2: Eliminación de Pagos -->
+            <div class="content-card module-card-link" style="cursor: default;">
+              <div>
+                <div class="card-top-row">
+                  <div class="card-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                      <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                  </div>
+                </div>
+                <br>
+                <h3 class="card-item-title">Eliminación de Pagos</h3>
+                <br>
+                <p class="card-item-description">Visualiza todos los registros de pagos, busca por socio o concepto y elimina uno, varios o todos los seleccionados.</p>
+              </div>
+              <button type="button" id="btnAbrirModalEliminarPagos" class="btn-secondary">
+                <span>Gestionar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
+            <!-- Tarjeta 3: Información de Usuarios -->
+            <div class="content-card module-card-link" style="cursor: default;">
+              <div>
+                <div class="card-top-row">
+                  <div class="card-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                  </div>
+                </div>
+                <br>
+                <h3 class="card-item-title">Información de Usuarios</h3>
+                <br>
+                <p class="card-item-description">Extrae listados detallados y estadísticas de socios: totales, por género, menores de edad o altas del año en curso.</p>
+              </div>
+              <button type="button" id="btnAbrirModalInfoUsuarios" class="btn-secondary">
+                <span>Gestionar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
+            <!-- Tarjeta 4: Eliminación Masiva de Usuarios -->
+            <div class="content-card module-card-link" style="cursor: default;">
+              <div>
+                <div class="card-top-row">
+                  <div class="card-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="8.5" cy="7" r="4"></circle>
+                      <path d="M18 11l5 5m0-5l-5 5"></path>
+                    </svg>
+                  </div>
+                </div>
+                <br>
+                <h3 class="card-item-title">Eliminación Masiva de Usuarios</h3>
+                <br>
+                <p class="card-item-description">Selecciona varios socios y baja sus perfiles de forma simultánea junto con todos sus pagos asociados.</p>
+              </div>
+              <button type="button" id="btnAbrirModalEliminarUsuarios" class="btn-secondary">
+                <span>Gestionar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL: PAGOS MASIVOS -->
+  <div id="modalPagosMasivos" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 750px; text-align: left; padding: 2rem; max-height: 90vh; display: flex; flex-direction: column;">
+      
+      <!-- Cabecera del Modal -->
+      <div class="modal-header-actions" style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+        <div>
+          <h3 class="support-title" style="font-size: 1.25rem; margin-bottom: 0.2rem;">Pagos Masivos</h3>
+          <p class="support-subtitle">Configura el concepto, la fecha y selecciona los socios receptores.</p>
+        </div>
+        <button type="button" id="btnCerrarModalPagos" class="btn-logout-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo Scrollable -->
+      <div style="overflow-y: auto; flex: 1; padding-right: 0.25rem;">
+        
+        <!-- Configuración -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; margin-bottom: 1.25rem; align-items: flex-end;">
+          <div class="support-field-group">
+            <label class="support-label">Concepto de Cuota</label>
+            <select id="autoSelectConcepto" class="form-control-styled support-select">
+              <option value="">Cargando conceptos...</option>
+            </select>
+          </div>
+          <div class="support-field-group">
+            <label class="support-label">Fecha de Cobro / Emisión</label>
+            <input type="date" id="autoFechaPago" class="form-control-styled">
+          </div>
+          <div>
+            <button type="button" id="btnSeleccionarTodos" class="btn-secondary" style="white-space: nowrap;">Marcar Visibles</button>
+          </div>
+        </div>
+
+        <!-- Búsqueda y Contador -->
+        <div class="modal-header-actions" style="margin-bottom: 0.75rem;">
+          <div style="position: relative; width: 260px;">
+            <input type="text" id="inputBuscarDni" placeholder="Buscar por DNI..." class="form-control-styled" style="padding-left: 2.25rem;">
+            <svg style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <span id="contadorSeleccionados" class="support-label" style="color: var(--text-secondary); font-weight: 500;">0 socios seleccionados</span>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive" style="border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;"><input type="checkbox" id="checkboxCabecera" style="cursor: pointer;"></th>
+                <th>Nombre del Socio</th>
+                <th>DNI</th>
+                <th style="text-align: right;">Importe Cuota</th>
+              </tr>
+            </thead>
+            <tbody id="tablaSociosAutomatizacionBody">
+              <tr>
+                <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">Cargando lista de socios...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="modal-header-actions" style="margin-top: 0.75rem; margin-bottom: 0; font-size: 0.85rem; color: var(--text-secondary);">
+          <span id="textoPaginacionInfo">Mostrando 0-0 de 0</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button type="button" id="btnPaginaAnterior" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Anterior</button>
+            <span id="textoPaginaActual" style="font-weight: 600;">1 / 1</span>
+            <button type="button" id="btnPaginaSiguiente" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Siguiente</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pie del Modal -->
+      <div class="support-footer-actions" style="margin-top: 1rem; margin-bottom: 0;">
+        <span class="support-subtitle" style="font-size: 0.8rem; align-self: center;">Se generarán registros individuales para cada socio.</span>
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" id="btnCancelarModalPagos" class="btn-secondary">Cancelar</button>
+          <button type="button" id="btnEjecutarCobrosMasivos" class="btn-primary">Procesar Pagos Masivos</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL: GESTIÓN Y ELIMINACIÓN DE PAGOS -->
+  <div id="modalEliminarPagos" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 800px; text-align: left; padding: 2rem; max-height: 90vh; display: flex; flex-direction: column;">
+      
+      <!-- Cabecera del Modal -->
+      <div class="modal-header-actions" style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+        <div>
+          <h3 class="support-title" style="font-size: 1.25rem; margin-bottom: 0.2rem;">Eliminación de Pagos</h3>
+          <p class="support-subtitle">Visualiza el historial de pagos registrados y elimina los elementos que necesites.</p>
+        </div>
+        <button type="button" id="btnCerrarModalEliminarPagos" class="btn-logout-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo Scrollable -->
+      <div style="overflow-y: auto; flex: 1; padding-right: 0.25rem;">
+        
+        <!-- Búsqueda y Controles -->
+        <div class="modal-header-actions" style="margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="position: relative; width: 280px;">
+            <input type="text" id="inputBuscarPagos" placeholder="Buscar por socio o concepto..." class="form-control-styled" style="padding-left: 2.25rem;">
+            <svg style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <button type="button" id="btnSeleccionarTodosPagos" class="btn-secondary">Marcar Visibles</button>
+          <span id="contadorPagosSeleccionados" class="support-label" style="color: var(--text-secondary); font-weight: 500; margin-left: auto;">0 pagos seleccionados</span>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive" style="border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;"><input type="checkbox" id="checkboxCabeceraPagos" style="cursor: pointer;"></th>
+                <th>Socio</th>
+                <th>Concepto</th>
+                <th>Fecha</th>
+                <th style="text-align: right;">Importe</th>
+                <th style="text-align: center; width: 60px;">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="tablaPagosEliminarBody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">Cargando pagos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="modal-header-actions" style="margin-top: 0.75rem; margin-bottom: 0; font-size: 0.85rem; color: var(--text-secondary);">
+          <span id="textoPaginacionPagosInfo">Mostrando 0-0 de 0</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button type="button" id="btnPaginaAnteriorPagos" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Anterior</button>
+            <span id="textoPaginaActualPagos" style="font-weight: 600;">1 / 1</span>
+            <button type="button" id="btnPaginaSiguientePagos" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Siguiente</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pie del Modal -->
+      <div class="support-footer-actions" style="margin-top: 1rem; margin-bottom: 0;">
+        <span class="support-subtitle" style="font-size: 0.8rem; align-self: center;">Los pagos eliminados no se podrán recuperar.</span>
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" id="btnCancelarModalEliminarPagos" class="btn-secondary">Cerrar</button>
+          <button type="button" id="btnEjecutarEliminacionPagos" class="btn-primary">Eliminar Seleccionados</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- MODAL: ELIMINACIÓN MASIVA DE USUARIOS -->
+  <div id="modalEliminarUsuarios" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 750px; text-align: left; padding: 2rem; max-height: 90vh; display: flex; flex-direction: column;">
+      
+      <!-- Cabecera del Modal -->
+      <div class="modal-header-actions" style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+        <div>
+          <h3 class="support-title">Eliminación Masiva de Usuarios</h3>
+          <p class="support-subtitle">Selecciona los socios que deseas dar de baja permanentemente.</p>
+        </div>
+        <button type="button" id="btnCerrarModalEliminarUsuarios" class="btn-logout-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo Scrollable -->
+      <div style="overflow-y: auto; flex: 1; padding-right: 0.25rem;">
+        
+        <!-- Búsqueda y Controles -->
+        <div class="modal-header-actions" style="margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="position: relative; width: 260px;">
+            <input type="text" id="inputBuscarDniUsuarios" placeholder="Buscar por DNI o nombre..." class="form-control-styled" style="padding-left: 2.25rem;">
+            <svg style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <button type="button" id="btnSeleccionarTodosUsuarios" class="btn-secondary">Marcar Visibles</button>
+          <span id="contadorUsuariosSeleccionados" class="support-label" style="color: var(--text-secondary); font-weight: 500; margin-left: auto;">0 usuarios seleccionados</span>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-responsive" style="border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;"><input type="checkbox" id="checkboxCabeceraUsuarios" style="cursor: pointer;"></th>
+                <th>Nombre del Socio</th>
+                <th>DNI</th>
+                <th style="text-align: right;">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tablaUsuariosEliminarBody">
+              <tr>
+                <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">Cargando lista de socios...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="modal-header-actions" style="margin-top: 0.75rem; margin-bottom: 0; font-size: 0.85rem; color: var(--text-secondary);">
+          <span id="textoPaginacionUsuariosInfo">Mostrando 0-0 de 0</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button type="button" id="btnPaginaAnteriorUsuarios" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Anterior</button>
+            <span id="textoPaginaActualUsuarios" style="font-weight: 600;">1 / 1</span>
+            <button type="button" id="btnPaginaSiguienteUsuarios" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Siguiente</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pie del Modal -->
+      <div class="support-footer-actions" style="margin-top: 1rem; margin-bottom: 0;">
+        <span class="support-subtitle" style="font-size: 0.8rem; align-self: center; color: var(--danger); font-weight: 600;">⚠️ Se eliminarán los perfiles y todos sus pagos asociados.</span>
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" id="btnCancelarModalEliminarUsuarios" class="btn-secondary">Cancelar</button>
+          <button type="button" id="btnEjecutarEliminacionUsuarios" class="btn-primary" style="background-color: var(--danger);">Eliminar Usuarios</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+ <!-- MODAL: INFORMACIÓN DE USUARIOS -->
+ <div id="modalInfoUsuarios" class="support-modal-overlay">
+  <div class="support-modal-card" style="max-width: 800px; text-align: left; padding: 2rem; max-height: 90vh; display: flex; flex-direction: column;">
+    
+    <!-- Cabecera del Modal -->
+    <div class="modal-header-actions" style="margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+      <div>
+        <h3 class="support-title" style="font-size: 1.25rem; margin-bottom: 0.2rem;">Información de Usuarios</h3>
+        <p class="support-subtitle">Filtra y extrae estadísticas o listados personalizados de los socios.</p>
+      </div>
+      <button type="button" id="btnCerrarModalInfoUsuarios" class="btn-logout-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Cuerpo Scrollable -->
+    <div style="overflow-y: auto; flex: 1; padding-right: 0.25rem;">
+      
+      <!-- Selectores de Filtro -->
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1.25rem; align-items: flex-end;">
+        <div class="support-field-group">
+          <label class="support-label">Tipo de Listado / Filtro</label>
+          <select id="selectFiltroInfoUsuarios" class="form-control-styled support-select">
+            <option value="todos">Listado completo de socios (Total)</option>
+            <option value="hombres">Socios Hombres</option>
+            <option value="mujeres">Socios Mujeres</option>
+            <option value="menores">Menores de edad</option>
+            <option value="altas_anio">Altas de este año</option>
+            <option value="federados">Deportistas Federados</option> <!-- Nueva opción añadida -->
+          </select>
+        </div>
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <span id="badgeContadorTotalInfo" class="support-badge" style="padding: 0.6rem 1rem; background: var(--surface-secondary, #f1f5f9); border-radius: 8px; font-weight: 600; color: var(--text-main); display: inline-block;">0 registros</span>
+          <button type="button" id="btnExportarCsvUsuarios" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Exportar CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla de Resultados -->
+      <div class="table-responsive" style="border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+        <table class="data-table">
+          <thead id="tablaInfoUsuariosHead">
+            <tr>
+              <th>Nombre del Socio</th>
+              <th>DNI / NIF</th>
+              <th>Género</th>
+              <th>Fecha Nac. / Edad</th>
+              <th style="text-align: right;">Fecha de Alta</th>
+            </tr>
+          </thead>
+          <tbody id="tablaInfoUsuariosBody">
+            <tr>
+              <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">Selecciona un filtro para ver los datos...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="modal-header-actions" style="margin-top: 0.75rem; margin-bottom: 0; font-size: 0.85rem; color: var(--text-secondary);">
+        <span id="textoPaginacionInfoUsuarios">Mostrando 0-0 de 0</span>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button type="button" id="btnPaginaAnteriorInfo" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Anterior</button>
+          <span id="textoPaginaActualInfo" style="font-weight: 600;">1 / 1</span>
+          <button type="button" id="btnPaginaSiguienteInfo" class="btn-secondary" style="padding: 0.4rem 0.75rem;" disabled>Siguiente</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pie del Modal -->
+    <div class="support-footer-actions" style="margin-top: 1rem; margin-bottom: 0;">
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" id="btnCerrarPieModalInfo" class="btn-secondary">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <script type="module" src="../js/auth-check.js"></script>
+  <script type="module" src="../js/user-manager.js"></script>
+  <script type="module" src="../js/automatizaciones-loader.js"></script>
+</body>
+</html>

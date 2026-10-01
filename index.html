@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Acceso Directivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  
+  <div class="app-viewport">
+    
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <main class="central-auth-container">
+      <div class="auth-card-inner">
+        
+        <header class="card-brand-header">
+          <div class="brand-logo">
+            <svg class="brand-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/>
+            </svg>
+            <span class="brand-title">Flexia<span> Portal</span></span>
+          </div>
+          <span class="brand-tagline">Gestión integral de Organizaciones y Entidades</span>
+        </header>
+
+        <div class="auth-views-manager">
+          
+          <!-- ESTADO 1: Iniciar Sesión -->
+          <div id="login-view" class="view-state active">
+            <div class="view-header">
+              <h1>Inicio de sesión</h1>
+              <p>Por favor, introduce tus datos para acceder.</p>
+            </div>
+
+            <form id="login-form" class="auth-form" onsubmit="event.preventDefault();">
+              <div class="form-group">
+                <label for="login-email">Correo Electrónico</label>
+                <div class="input-wrapper">
+                  <input type="email" id="login-email" placeholder="usuario@tuentidad.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="label-row">
+                  <label for="login-password">Contraseña</label>
+                  <a href="#" class="link-action" onclick="switchView('reset-view')">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div class="input-wrapper">
+                  <input type="password" id="login-password" placeholder="••••••••••••" required autocomplete="current-password">
+                  <button type="button" class="btn-toggle-password" aria-label="Ver u ocultar contraseña">
+                    <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div id="error-message" class="auth-error-display" style="color: #ff4d4d; font-size: 0.85rem; margin-bottom: 15px; display: none;"></div>
+
+              <button type="submit" class="btn-primary" id="btn-login">
+                <span>Acceder</span>
+              </button>
+            </form>
+
+            <footer class="auth-footer">
+              <p>¿Aún no gestionas tu entidad en Flexia Portal? <a href="#" class="link-highlight" onclick="switchView('register-view')">Crear cuenta</a></p>
+              <!-- APARTADO DE VERSIÓN -->
+              <div class="app-version-badge">
+                <span id="app-version">v26.8.10.1</span>
+              </div>
+            </footer>
+          </div>
+
+          <!-- ESTADO 2: Crear Cuenta (Solo Credenciales) -->
+          <div id="register-view" class="view-state">
+            <div class="view-header">
+              <h1>Regístrate</h1>
+              <p>Empieza creando tu cuenta de usuario.</p>
+            </div>
+
+            <form id="register-form" class="auth-form" onsubmit="event.preventDefault();">
+              <div class="form-group">
+                <label for="reg-email">Correo Corporativo / Oficial</label>
+                <div class="input-wrapper">
+                  <input type="email" id="reg-email" placeholder="usuario@tuentidad.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="reg-password">Contraseña</label>
+                <div class="input-wrapper">
+                  <input type="password" id="reg-password" placeholder="Min. 8 car. (Mayúscula, minúscula, número y símbolo)" required minlength="8">
+                  <button type="button" class="btn-toggle-password" aria-label="Ver u ocultar contraseña">
+                    <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div id="error-message" class="auth-error-display" style="color: #ff4d4d; font-size: 0.85rem; margin-bottom: 15px; display: none;"></div>
+
+              <button type="submit" class="btn-primary">
+                <span>Configurar Entidad</span>
+              </button>
+            </form>
+
+            <footer class="auth-footer">
+              <p>¿Ya tienes una cuenta? <a href="#" class="link-highlight" onclick="switchView('login-view')">Iniciar Sesión</a></p>
+            </footer>
+          </div>
+
+          <!-- ESTADO 3: Recuperar -->
+          <div id="reset-view" class="view-state">
+            <div class="view-header">
+              <h1>Recuperar Contraseña</h1>
+              <p>Ingresa tu correo para recibir un enlace.</p>
+            </div>
+
+            <form id="reset-form" class="auth-form" onsubmit="event.preventDefault();">
+              <div class="form-group">
+                <label for="reset-email">Correo Electrónico</label>
+                <div class="input-wrapper">
+                  <input type="email" id="reset-email" placeholder="usuario@tuentidad.com" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary">
+                <span>Enviar Enlace</span>
+              </button>
+            </form>
+
+            <footer class="auth-footer">
+              <p>Volver a <a href="#" class="link-highlight" onclick="switchView('login-view')">Iniciar Sesión</a></p>
+            </footer>
+          </div>
+
+          <!-- ESTADO 4: Configurar Organización y CIF (Paso 2) -->
+          <div id="org-setup-view" class="view-state">
+            <div class="view-header">
+              <h1>Configura tu Organización</h1>
+              <p>Casi listo. Indica tu entidad para finalizar.</p>
+            </div>
+          
+            <form id="org-setup-form" class="auth-form" onsubmit="event.preventDefault();">
+              <div class="form-group">
+                <label for="org-setup-name">Nombre de la Organización</label>
+                <div class="input-wrapper">
+                  <input type="text" id="org-setup-name" placeholder="Asociación San Agustín" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="org-setup-cif">Identificador Fiscal (CIF)</label>
+                <div class="input-wrapper">
+                  <input type="text" id="org-setup-cif" placeholder="A12345678" required>
+                </div>
+              </div>
+              
+              <div id="org-error-message" class="auth-error-display" style="color: #ff4d4d; font-size: 0.85rem; margin-bottom: 15px; display: none;"></div>
+          
+              <button type="submit" class="btn-primary" style="margin-bottom: 12px;"><span>Finalizar Registro</span></button>
+              
+              <!-- Botón para cancelar y borrar el usuario creado en Auth -->
+              <button type="button" id="btn-cancel-setup" style="background: none; border: none; color: #6b7280; font-size: 0.9rem; cursor: pointer; width: 100%; text-align: center; padding: 8px;">
+                Cancelar y volver atrás
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN DE ORGANIZACIÓN EXISTENTE -->
+  <div id="org-confirm-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-card" style="background: #ffffff; padding: 32px; border-radius: 16px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+      <h3 style="margin-bottom: 12px; color: #111827; font-size: 1.25rem; font-weight: 700;">Organización ya existente</h3>
+      <p id="modal-org-text" style="margin-bottom: 24px; color: #4b5563; font-size: 0.95rem; line-height: 1.5;"></p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button type="button" id="btn-cancel-join" style="padding: 10px 20px; border-radius: 8px; border: 1px solid #d1d5db; background: #f3f4f6; color: #374151; font-weight: 600; cursor: pointer; flex: 1;">Cancelar</button>
+        <button type="button" id="btn-confirm-join" class="btn-primary" style="padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; flex: 1;">Sí, unirme</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="org-success-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000;">
+    <div class="modal-card" style="background: #ffffff; padding: 32px; border-radius: 16px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+      <div style="width: 48px; height: 48px; background: #d1fae5; color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3 id="modal-success-title" style="margin-bottom: 8px; color: #111827; font-size: 1.25rem; font-weight: 700;">¡Éxito!</h3>
+      <p id="modal-success-text" style="margin-bottom: 24px; color: #4b5563; font-size: 0.95rem; line-height: 1.5;"></p>
+      <button type="button" id="btn-success-ok" class="btn-primary" style="padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; width: 100%;">Continuar al Panel</button>
+    </div>
+  </div>
+
+  <script>
+    function switchView(viewId) {
+      document.querySelectorAll('.view-state').forEach(el => el.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+    }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

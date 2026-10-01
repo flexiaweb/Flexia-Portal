@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Gestión de Cuotas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Fondo Abstracto General -->
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <!-- ÁREA CENTRAL (VENTANA COMPLETA) -->
+      <main class="main-viewport">
+        <div id="appHeaderContainer"></div>
+        <!-- NAVEGACIÓN DE RUTA -->
+        <div style="margin-bottom: 1.5rem;">
+            <a href="./dashboard.html" class="btn-back-link" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent-primary); font-weight: 600; font-size: 0.9rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Dashboard
+            </a>
+        </div>
+        
+        <!-- MÓDULO CUOTAS -->
+        <section class="content-card">
+          <div class="card-header-actions">
+            <h3 class="card-item-title">Gestión de Conceptos de Cuota</h3>
+            <button id="btnNuevaConfig" class="btn-primary">Crear Concepto</button>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Concepto</th>
+                  <th>Importe Predeterminado</th>
+                  <th>Periodicidad</th>
+                  <th style="text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="configCuotasBody">
+                <tr>
+                  <td colspan="4" style="text-align: center; color: var(--text-muted);">Cargando conceptos de cuota...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- MÓDULO: HISTÓRICO DE PAGOS RECIENTES -->
+        <section class="content-card" style="margin-top: 2rem;">
+            <div class="card-header-actions" style="margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+                <h3 class="card-item-title" style="margin: 0;">Histórico de Pagos Recientes</h3>
+                                    
+                <!-- Control de Filtro Unificado -->
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                <input type="text" id="filtroGeneral" placeholder="Buscar por socio o concepto..." style="padding: 0.45rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.85rem; outline: none; background: rgba(255,255,255,0.5); width: 240px;">
+                
+                <input type="month" id="filtroFecha" style="padding: 0.42rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.85rem; outline: none; background: rgba(255,255,255,0.5);">
+                
+                <button id="btnLimpiarFiltros" class="btn-secondary" style="padding: 0.45rem 0.75rem; font-size: 0.8rem;">Limpiar</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                <thead>
+                    <tr>
+                    <th>Socio</th>
+                    <th>Concepto</th>
+                    <th>Fecha</th>
+                    <th>Próximo Pago</th>
+                    <th style="text-align: right;">Importe</th>
+                    </tr>
+                </thead>
+                <tbody id="historialPagosGlobal">
+                    <tr>
+                    <td colspan="4" style="text-align: center; color: var(--text-muted);">Cargando pagos recientes...</td>
+                    </tr>
+                </tbody>
+                </table>
+                <div id="paginacionPagosContainer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding: 0.5rem 1rem;">
+                    <span id="infoPaginacion" style="font-size: 0.85rem; color: var(--text-muted);">Mostrando 0 de 0 pagos</span>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button id="btnPaginaAnterior" class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;" disabled>Anterior</button>
+                        <button id="btnPaginaSiguiente" class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;" disabled>Siguiente</button>
+                    </div>
+                </div>
+                <button id="btnDescargarExcel" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Descargar Excel (CSV)
+                </button>
+            </div>
+        </section>
+
+        <!-- MODAL PARA CREAR / EDITAR CONCEPTO DE CUOTA -->
+        <div id="modalNuevaConfig" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 2rem 0;">
+            <div class="content-card" style="width: 100%; max-width: 480px; margin: auto; animation: fadeIn 0.2s ease;">
+            <div class="card-header-actions" style="margin-bottom: 1.25rem;">
+                <h3 id="tituloModalConfig" class="card-item-title">Nuevo Concepto de Cuota</h3>
+                <button type="button" id="btnCerrarModalConfig" class="btn-secondary" style="padding: 0.4rem 0.7rem;">✕</button>
+            </div>
+            
+            <form id="formNuevaConfig" style="display: flex; flex-direction: column; gap: 0.85rem;">
+                <!-- Campo oculto para almacenar el ID en modo edición -->
+                <input type="hidden" id="configId">
+        
+                <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Nombre del Concepto</label>
+                <input type="text" id="configNombre" required placeholder="Ej. Cuota Trimestral General" style="padding: 0.65rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-family: var(--font-family); font-size: 0.9rem; outline: none;">
+                </div>
+        
+                <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Importe Predeterminado (€)</label>
+                <input type="number" step="0.01" id="configImporte" required placeholder="0.00" style="padding: 0.65rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-family: var(--font-family); font-size: 0.9rem; outline: none;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <!-- Tipo de periodicidad (Meses o Días) -->
+                  <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                      <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Unidad de Tiempo</label>
+                      <select id="configTipoUnidad" required style="padding: 0.65rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-family: var(--font-family); font-size: 0.9rem; outline: none; background: #fff;">
+                          <option value="meses">Meses</option>
+                          <option value="dias">Días</option>
+                      </select>
+                  </div>
+              
+                  <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                      <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Frecuencia / Cantidad</label>
+                      <input type="number" id="configPeriodicidad" min="1" value="1" required placeholder="Ej. 2" style="padding: 0.65rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-family: var(--font-family); font-size: 0.9rem; outline: none; background: #fff;">
+                  </div>
+              </div>
+        
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+                <button type="button" id="btnCancelarConfig" class="btn-secondary">Cancelar</button>
+                <button type="submit" class="btn-secondary" style="background-color: var(--accent-primary); color: #fff;">Guardar Concepto</button>
+                </div>
+            </form>
+            </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <script type="module" src="../js/auth-check.js"></script>
+  <script type="module" src="../js/user-manager.js"></script>
+  <script type="module" src="../js/cuotas-loader.js"></script>
+</body>
+</html>

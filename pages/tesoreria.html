@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Tesorería y Economía</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <div class="app-viewport">
+    <!-- Fondo Abstracto General -->
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <main class="main-viewport">
+        <div id="appHeaderContainer"></div>
+        <!-- NAVEGACIÓN DE RUTA -->
+        <div style="margin-bottom: 1.5rem;">
+            <a href="./dashboard.html" class="btn-back-link" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent-primary); font-weight: 600; font-size: 0.9rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Dashboard
+            </a>
+        </div>
+
+        <!-- CONTENEDOR GENERAL UNIFICADO (Cabecera limpia y KPIs) -->
+        <div class="content-card" style="margin-bottom: 1.5rem;">
+            
+            <!-- Cabecera interna: Solo Título y Nuevo Movimiento a la derecha -->
+            <div class="card-header-actions" style="margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h1>Tesorería</h1>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem;">Control de ingresos, gastos, presupuestos y saldos por secciones.</p>
+                </div>
+                
+                <div>
+                    <button id="btnAbrirModalMovimiento" class="btn-primary" style="display: flex; align-items: center; gap: 0.5rem;">
+                        Nuevo Movimiento
+                    </button>
+                </div>
+            </div>
+
+            <!-- TARJETAS KPI EN CUADRÍCULA -->
+            <div class="kpi-grid" style="margin-bottom: 0;">
+                <div class="kpi-card">
+                    <span class="kpi-label">Balance Total Actual</span>
+                    <span id="kpiBalance" class="kpi-value">0,00 €</span>
+                    <span class="kpi-trend">Cálculo en tiempo real</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">Ingresos Totales</span>
+                    <span id="kpiIngresos" class="kpi-value" style="color: var(--success);">0,00 €</span>
+                    <span class="kpi-trend">Filtrado actual</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">Gastos Totales</span>
+                    <span id="kpiGastos" class="kpi-value" style="color: var(--danger);">0,00 €</span>
+                    <span class="kpi-trend">Filtrado actual</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">Pendiente de Cobro / Pago</span>
+                    <span id="kpiPendiente" class="kpi-value" style="color: var(--warning);">0,00 €</span>
+                    <span class="kpi-trend">Deudas y remanentes</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TABLA DE MOVIMIENTOS CON BARRA DE FILTROS INTEGRADA -->
+        <div class="content-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; background: rgba(255, 255, 255, 0.5); margin: -1.5rem -1.5rem 1.25rem -1.5rem; border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg);">
+              <span style="font-size: 0.9rem; font-weight: 600; color: #dc2626; display: flex; align-items: center; gap: 0.4rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Mostrando vista filtrada por defecto: <span id="textoFiltroActivo" style="font-weight: 700;"></span>
+              </span>
+              <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                  <input type="text" id="inputBuscarConcepto" placeholder="Buscar concepto..." class="form-control-styled" style="padding: 0.5rem 0.75rem; width: 220px;">
+                  
+                  <button id="btnAbrirModalFiltrosAvanzados" class="btn-secondary" style="display: flex; align-items: center; gap: 0.5rem;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                      Filtros
+                  </button>  
+
+                  <button id="btnAbrirModalConfig" class="btn-secondary" style="display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.75rem;" title="Configurar Secciones y Temporadas">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                      Secciones
+                  </button>
+              </div>
+          </div>
+
+          <!-- Tabla estructurada exactamente igual que el listado de socios -->
+          <div class="table-responsive">
+              <table class="data-table">
+                  <thead>
+                      <tr>
+                          <th>Fecha</th>
+                          <th>Concepto</th>
+                          <th>Sección</th>
+                          <th>Temporada</th>
+                          <th>Tipo</th>
+                          <th>Importe</th>
+                          <th>Estado</th>
+                          <th style="text-align: right;">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody id="tablaMovimientosBody">
+                      <tr>
+                          <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2rem;">Cargando movimientos de tesorería...</td>
+                      </tr>
+                  </tbody>
+              </table>
+
+              <!-- Paginación integrada dentro de table-responsive igual que socios -->
+              <div id="paginacionContainer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding: 0.5rem 0; font-size: 0.85rem; color: var(--text-secondary);">
+                  <span id="paginacionInfo" style="font-size: 0.85rem; color: var(--text-secondary);">Mostrando 0 de 0 movimientos</span>
+                  <div style="display: flex; gap: 0.5rem; align-items: center;">
+                      <button id="btnExportarCsv" class="btn-secondary" title="Descargar CSV con los datos visibles" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                          CSV
+                      </button>
+                      <button id="btnExportarPdf" class="btn-secondary" title="Descargar PDF con los datos visibles" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                          PDF
+                      </button>
+                      <button type="button" id="btnPaginaAnterior" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" disabled>Anterior</button>
+                      <span id="paginacionActual" style="font-size: 0.85rem; font-weight: 600; padding: 0 0.5rem;">Página 1 de 1</span>
+                      <button type="button" id="btnPaginaSiguiente" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" disabled>Siguiente</button>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL NUEVO MOVIMIENTO -->
+  <div id="modalNuevoMovimiento" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 450px; text-align: left;">
+      <div class="support-modal-title" style="margin-bottom: 1rem;">Registrar Nuevo Movimiento</div>
+      <form id="formNuevoMovimiento" class="support-form-stack" style="gap: 1rem;">
+        <div class="support-field-group">
+          <label class="support-label">Concepto</label>
+          <input type="text" id="nuevoConcepto" required class="form-control-styled" placeholder="Ej. Cuota mensual socio / Compra material">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="support-field-group">
+            <label class="support-label">Tipo</label>
+            <select id="nuevoTipo" class="form-control-styled">
+              <option value="income">Ingreso</option>
+              <option value="expense">Gasto</option>
+            </select>
+          </div>
+          <div class="support-field-group">
+            <label class="support-label">Importe (€)</label>
+            <input type="number" step="0.01" id="nuevoImporte" required class="form-control-styled" placeholder="0.00">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="support-field-group">
+                <label class="support-label">Actividades</label>
+                <select id="nuevaSeccion" required class="form-control-styled">
+                    <option value="" disabled selected>Seleccionar Actividad...</option>
+                </select>
+            </div>
+            <div class="support-field-group">
+                <label class="support-label">Temporada</label>
+                <select id="nuevaTemporada" required class="form-control-styled">
+                    <option value="" disabled selected>Selecciona temporada...</option>
+                </select>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="support-field-group">
+            <label class="support-label">Estado</label>
+            <select id="nuevoEstado" class="form-control-styled">
+              <option value="paid">Cobrado / Pagado</option>
+              <option value="pending">Pendiente (Deuda)</option>
+            </select>
+          </div>
+          <div class="support-field-group">
+            <label class="support-label">Fecha</label>
+            <input type="date" id="nuevaFecha" required class="form-control-styled">
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+          <button type="button" id="btnCerrarModal" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR MOVIMIENTO -->
+  <div id="modalEditarMovimiento" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 450px; text-align: left;">
+      <div class="support-modal-title" style="margin-bottom: 1rem;">Editar Movimiento</div>
+      <form id="formEditarMovimiento" class="support-form-stack" style="gap: 1rem;">
+        <input type="hidden" id="editarIdMovimiento">
+        <div class="support-field-group">
+          <label class="support-label">Concepto</label>
+          <input type="text" id="editarConcepto" required class="form-control-styled">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="support-field-group">
+            <label class="support-label">Tipo</label>
+            <select id="editarTipo" class="form-control-styled">
+              <option value="income">Ingreso</option>
+              <option value="expense">Gasto</option>
+            </select>
+          </div>
+          <div class="support-field-group">
+            <label class="support-label">Importe (€)</label>
+            <input type="number" step="0.01" id="editarImporte" required class="form-control-styled">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="support-field-group">
+                <label class="support-label">Actividades</label>
+                <select id="editarSeccion" required class="form-control-styled"></select>
+            </div>
+            <div class="support-field-group">
+                <label class="support-label">Temporada</label>
+                <select id="editarTemporada" required class="form-control-styled"></select>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="support-field-group">
+            <label class="support-label">Estado</label>
+            <select id="editarEstado" class="form-control-styled">
+              <option value="paid">Cobrado / Pagado</option>
+              <option value="pending">Pendiente (Deuda)</option>
+            </select>
+          </div>
+          <div class="support-field-group">
+            <label class="support-label">Fecha</label>
+            <input type="date" id="editarFecha" required class="form-control-styled">
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+          <button type="button" id="btnCerrarModalEditar" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMACIÓN ELIMINAR -->
+  <div id="modalEliminarMovimiento" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 400px; text-align: left;">
+      <div class="support-modal-title" style="margin-bottom: 0.75rem; color: var(--danger);">Confirmar Eliminación</div>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        ¿Estás seguro de que deseas eliminar este movimiento de tesorería? Esta acción quedará registrada en el sistema.
+      </p>
+      <input type="hidden" id="eliminarIdMovimiento">
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <button type="button" id="btnCerrarModalEliminar" class="btn-secondary">Cancelar</button>
+        <button type="button" id="btnConfirmarEliminar" class="btn-primary" style="background-color: var(--danger);">Sí, Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIGURACIÓN (SECCIONES Y TEMPORADAS) -->
+  <div id="modalConfig" class="support-modal-overlay">
+    <div class="support-modal-card" style="max-width: 500px; text-align: left;">
+      <div class="support-modal-title" style="margin-bottom: 1rem;">Configurar Actividades y Temporadas</div>
+      
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+          <label class="support-label" style="font-weight: 700; margin-bottom: 0.5rem; display: block;">Actividades</label>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <input type="text" id="inputNuevaSeccionConfig" class="form-control-styled" placeholder="Nueva actividad..." style="flex: 1;">
+            <button type="button" id="btnAddSeccionConfig" class="btn-primary" style="padding: 0.5rem 1rem;">Añadir</button>
+          </div>
+          <div id="listaSeccionesConfigContainer" style="max-height: 120px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.35rem; border: 1px solid var(--border-color); padding: 0.5rem; border-radius: 8px;"></div>
+        </div>
+
+        <div>
+          <label class="support-label" style="font-weight: 700; margin-bottom: 0.5rem; display: block;">Temporadas</label>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <input type="text" id="inputNuevaTemporadaConfig" class="form-control-styled" placeholder="Ej. 2026-2027" style="flex: 1;">
+            <button type="button" id="btnAddTemporadaConfig" class="btn-primary" style="padding: 0.5rem 1rem;">Añadir</button>
+          </div>
+          <div id="listaTemporadasConfigContainer" style="max-height: 120px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.35rem; border: 1px solid var(--border-color); padding: 0.5rem; border-radius: 8px;"></div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+        <button type="button" id="btnCerrarModalConfig" class="btn-primary">Cerrar y Actualizar</button>
+      </div>
+    </div>
+  </div>
+
+ <!-- MODAL FILTROS AVANZADOS -->
+ <div id="modalFiltrosAvanzados" class="support-modal-overlay">
+  <div class="support-modal-card" style="max-width: 480px; text-align: left;">
+    <div class="support-modal-title" style="margin-bottom: 1rem;">Filtros Avanzados de Tesorería</div>
+    
+    <div class="support-form-stack" style="gap: 1rem; display: flex; flex-direction: column;">
+      
+      <!-- Rango de Fechas: Desde / Hasta en una sola fila -->
+      <div class="support-field-group">
+        <label class="support-label" style="margin-bottom: 0.4rem;">Rango de Fechas</label>
+        <div style="display: flex; gap: 0.75rem;">
+          <div style="flex: 1;">
+            <span style="font-size: 0.75rem; color: var(--text-secondary, #6b7280); display: block; margin-bottom: 0.2rem;">Desde:</span>
+            <input type="date" id="modalFiltroFechaDesde" value="2026-01-01" class="form-control-styled" style="width: 100%;">
+          </div>
+          <div style="flex: 1;">
+            <span style="font-size: 0.75rem; color: var(--text-secondary, #6b7280); display: block; margin-bottom: 0.2rem;">Hasta:</span>
+            <input type="date" id="modalFiltroFechaHasta" value="2026-12-31" class="form-control-styled" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+
+      <div class="support-field-group">
+        <label class="support-label">Mes (Opcional)</label>
+        <select id="modalFiltroMes" class="form-control-styled">
+          <option value="all">Todos los meses</option>
+          <option value="01">Enero</option>
+          <option value="02">Febrero</option>
+          <option value="03">Marzo</option>
+          <option value="04">Abril</option>
+          <option value="05">Mayo</option>
+          <option value="06">Junio</option>
+          <option value="07">Julio</option>
+          <option value="08">Agosto</option>
+          <option value="09">Septiembre</option>
+          <option value="10">Octubre</option>
+          <option value="11">Noviembre</option>
+          <option value="12">Diciembre</option>
+      </a></select>
+      </div>
+
+      <div class="support-field-group">
+        <label class="support-label">Actividad</label>
+        <select id="modalFiltroSeccion" class="form-control-styled">
+          <option value="all">Todos</option>
+        </select>
+      </div>
+
+      <div class="support-field-group">
+        <label class="support-label">Temporada</label>
+        <select id="modalFiltroTemporada" class="form-control-styled">
+          <option value="all">Todos</option>
+        </select>
+      </div>
+
+      <div class="support-field-group">
+        <label class="support-label">Buscar Concepto</label>
+        <input type="text" id="modalInputBuscarConcepto" placeholder="Escribe para filtrar por concepto..." class="form-control-styled">
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 1.5rem;">
+      <button type="button" id="btnResetFiltros" class="btn-secondary" style="background: #f3f4f6; color: #374151;">Restablecer</button>
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" id="btnCerrarModalFiltros" class="btn-secondary">Cancelar</button>
+        <button type="button" id="btnAplicarFiltros" class="btn-primary">Aplicar Filtros</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script type="module" src="../js/auth-check.js"></script>
+  <script type="module" src="../js/user-manager.js"></script>
+  <script type="module" src="../js/tesoreria-loader.js"></script>
+</body>
+</html>

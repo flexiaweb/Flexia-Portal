@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexia Portal - Notificaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <div class="app-viewport">
+    <div class="abstract-background-engine" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="shape circle-large"></div>
+      <div class="shape circle-medium"></div>
+      <div class="shape orb-1"></div>
+      <div class="shape orb-2"></div>
+    </div>
+
+    <div class="dashboard-layout">
+      <main class="main-viewport">
+        <div id="appHeaderContainer"></div>
+        <!-- NAVEGACIÓN DE RUTA -->
+        <div style="margin-bottom: 1.5rem;">
+            <a href="./dashboard.html" class="btn-back-link" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent-primary); font-weight: 600; font-size: 0.9rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Dashboard
+            </a>
+        </div>
+
+        <div class="content-card">
+            <div class="card-header-actions">
+                <div>
+                    <h3 class="card-item-title">Próximos Cobros y Recordatorios</h3>
+                </div><!--
+                <div style="display: flex; gap: 0.75rem;">
+                    <button type="button" id="btnEnviarMasivo" class="btn-primary" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Enviar Avisos Pendientes
+                    </button>
+                </div>-->
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Socio / Cliente</th>
+                            <th>Concepto de Cuota</th>
+                            <th>Último Pago</th>
+                            <th>Próximo Cobro</th>
+                            <th>Estado Vencimiento</th>
+                            <th>Estado Notificación</th>
+                            <th style="text-align: right;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaComunicacionesBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: var(--text-muted);">Cargando datos de pagos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script type="module" src="../js/auth-check.js"></script>
+  <script type="module" src="../js/user-manager.js"></script>
+  <script type="module" src="../js/notificaciones-loader.js"></script>
+</body>
+</html>
